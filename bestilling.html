@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kaffebønna Kaffebar i Oslo – kaffe, bakst og hyggelige pauser.">
+  <title>Bestilling | Kaffebønna</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="index.html">Kaffeb<span>ønna</span></a>
+    <nav aria-label="Hovedmeny">
+      <a href="index.html">Forside</a>
+<a href="meny.html">Meny</a>
+<a href="bestilling.html" aria-current="page">Bestilling</a>
+<a href="betaling.html">Betaling</a>
+<a href="om-oss.html">Om oss</a>
+<a href="kontakt.html">Kontakt oss</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<section class="container page-intro"><h1>Bestill takeaway</h1><p>Velg det du ønsker, og legg produktene i handlekurven. Dette er en demonstrasjon av bestillingsflyten.</p></section>
+<section class="section"><div class="container"><div class="grid"><article class="card product-card"><div class="card-content"><h3>Latte</h3><p>Espresso med varm melk og et tynt lag melkeskum.</p><p class="price">49,- kr</p><p class="small">Allergener: Melk</p><button type="button" class="add-item" data-name="Latte" data-price="49">Legg til</button></div></article><article class="card product-card"><div class="card-content"><h3>Cappuccino</h3><p>Espresso, varm melk og luftig melkeskum.</p><p class="price">45,- kr</p><p class="small">Allergener: Melk</p><button type="button" class="add-item" data-name="Cappuccino" data-price="45">Legg til</button></div></article><article class="card product-card"><div class="card-content"><h3>Americano</h3><p>Espresso blandet med varmt vann.</p><p class="price">39,- kr</p><p class="small">Allergener: Ingen oppgitte allergener</p><button type="button" class="add-item" data-name="Americano" data-price="39">Legg til</button></div></article><article class="card product-card"><div class="card-content"><h3>Grønn te</h3><p>Mild te med frisk smak.</p><p class="price">35,- kr</p><p class="small">Allergener: Kan inneholde spor av allergener</p><button type="button" class="add-item" data-name="Grønn te" data-price="35">Legg til</button></div></article><article class="card product-card"><div class="card-content"><h3>Iskaffe</h3><p>Kald kaffe med melk og isbiter.</p><p class="price">49,- kr</p><p class="small">Allergener: Melk</p><button type="button" class="add-item" data-name="Iskaffe" data-price="49">Legg til</button></div></article><article class="card product-card"><div class="card-content"><h3>Eplekake</h3><p>Saftig eplekake med kanel.</p><p class="price">55,- kr</p><p class="small">Allergener: Gluten, egg, melk</p><button type="button" class="add-item" data-name="Eplekake" data-price="55">Legg til</button></div></article><article class="card product-card"><div class="card-content"><h3>Sjokoladekake</h3><p>Myk sjokoladekake med fyldig smak.</p><p class="price">59,- kr</p><p class="small">Allergener: Gluten, egg, melk</p><button type="button" class="add-item" data-name="Sjokoladekake" data-price="59">Legg til</button></div></article><article class="card product-card"><div class="card-content"><h3>Ost og skinke</h3><p>Smørbrød med ost, skinke og salat.</p><p class="price">69,- kr</p><p class="small">Allergener: Gluten, melk</p><button type="button" class="add-item" data-name="Ost og skinke" data-price="69">Legg til</button></div></article></div>
+<div class="cart"><h2>Handlekurv</h2><p id="cart-message" aria-live="polite">Handlekurven er tom.</p><ul id="cart-items"></ul><p class="cart-total">Totalt: <span id="cart-total">0,- kr</span></p><button id="checkout" type="button">Til kassen</button></div>
+</div></section>
+
+</main>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div><strong>Kaffebønna Kaffebar</strong><br>En god pause, én kopp om gangen.</div>
+    <div>Storgata 11, 0155 Oslo<br><a href="tel:+4733443678">33 44 36 78</a><br><a href="mailto:post@kaffebare.no">post@kaffebare.no</a></div>
+    <div class="small">© 2026 Kaffebønna · Eksempelprosjekt for nettsideutvikling</div>
+  </div>
+</footer>
+<script>
+const cart = [];
+const cartList = document.getElementById("cart-items");
+const totalEl = document.getElementById("cart-total");
+const message = document.getElementById("cart-message");
+function renderCart() {
+  cartList.innerHTML = "";
+  let total = 0;
+  cart.forEach((item, index) => {
+    total += item.price;
+    const li = document.createElement("li");
+    li.textContent = `${item.name} – ${item.price},- kr `;
+    const remove = document.createElement("button");
+    remove.type = "button"; remove.textContent = "Fjern";
+    remove.className = "button secondary"; remove.style.marginLeft = "8px";
+    remove.addEventListener("click", () => { cart.splice(index, 1); renderCart(); });
+    li.appendChild(remove); cartList.appendChild(li);
+  });
+  totalEl.textContent = `${total},- kr`;
+  message.textContent = cart.length ? `${cart.length} produkt(er) i handlekurven.` : "Handlekurven er tom.";
+  sessionStorage.setItem("kaffeboennaCart", JSON.stringify(cart));
+}
+document.querySelectorAll(".add-item").forEach(button => {
+  button.addEventListener("click", () => {
+    cart.push({name: button.dataset.name, price: Number(button.dataset.price)});
+    renderCart();
+  });
+});
+document.getElementById("checkout").addEventListener("click", () => {
+  if (!cart.length) { message.textContent = "Legg til minst ett produkt før du går til kassen."; return; }
+  window.location.href = "betaling.html";
+});
+renderCart();
+</script>
+</body>
+</html>

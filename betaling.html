@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kaffebønna Kaffebar i Oslo – kaffe, bakst og hyggelige pauser.">
+  <title>Betaling | Kaffebønna</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="logo" href="index.html">Kaffeb<span>ønna</span></a>
+    <nav aria-label="Hovedmeny">
+      <a href="index.html">Forside</a>
+<a href="meny.html">Meny</a>
+<a href="bestilling.html">Bestilling</a>
+<a href="betaling.html" aria-current="page">Betaling</a>
+<a href="om-oss.html">Om oss</a>
+<a href="kontakt.html">Kontakt oss</a>
+    </nav>
+  </div>
+</header>
+<main>
+
+<section class="container page-intro"><h1>Betaling</h1><p>Se totalsummen og velg hvordan du ønsker å betale.</p></section>
+<section class="section"><div class="container two-col">
+  <div class="info-panel"><h2>Din bestilling</h2><p>Beløp å betale: <strong id="payment-total">0,- kr</strong></p><p class="small">Totalsummen hentes fra handlekurven i bestillingssiden. Hvis den er tom, gå tilbake og legg til produkter.</p><a class="button secondary" href="bestilling.html">Tilbake til bestilling</a></div>
+  <div class="card"><div class="card-content">
+    <form id="payment-form">
+      <fieldset style="border:0;padding:0;margin:0"><legend><strong>Velg betalingsmåte</strong></legend>
+        <p><label><input type="radio" name="payment" value="vipps" checked style="width:auto" /> Vipps</label></p>
+        <p><label><input type="radio" name="payment" id="card" value="card" style="width:auto" /> Bank- eller kredittkort</label></p>
+        <p><label><input type="radio" name="payment" value="store" style="width:auto" /> Betal i butikken</label></p>
+      </fieldset>
+      <div id="card-fields" hidden>
+        <p class="small">Demofelt – ikke skriv inn ekte kortinformasjon.</p>
+        <div><label for="card-number">Kortnummer</label><input id="card-number" inputmode="numeric" autocomplete="off" placeholder="0000 0000 0000 0000" /></div>
+        <div class="form-grid"><div><label for="expiry">Utløpsdato</label><input id="expiry" placeholder="MM/ÅÅ" autocomplete="off" /></div><div><label for="cvv">CVC</label><input id="cvv" inputmode="numeric" placeholder="123" autocomplete="off" /></div></div>
+      </div>
+      <button type="submit">Bekreft bestilling</button>
+      <p id="payment-message" class="notice" aria-live="polite">Dette er en demonstrasjon, ikke en ekte betaling.</p>
+    </form>
+  </div></div>
+</div></section>
+
+</main>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div><strong>Kaffebønna Kaffebar</strong><br>En god pause, én kopp om gangen.</div>
+    <div>Storgata 11, 0155 Oslo<br><a href="tel:+4733443678">33 44 36 78</a><br><a href="mailto:post@kaffebare.no">post@kaffebare.no</a></div>
+    <div class="small">© 2026 Kaffebønna · Eksempelprosjekt for nettsideutvikling</div>
+  </div>
+</footer>
+<script>
+const stored = JSON.parse(sessionStorage.getItem("kaffeboennaCart") || "[]");
+const total = stored.reduce((sum, item) => sum + Number(item.price), 0);
+document.getElementById("payment-total").textContent = `${total},- kr`;
+const methods = document.querySelectorAll('input[name="payment"]');
+const cardFields = document.getElementById("card-fields");
+function toggleCardFields() { cardFields.hidden = !document.getElementById("card").checked; }
+methods.forEach(m => m.addEventListener("change", toggleCardFields));
+document.getElementById("payment-form").addEventListener("submit", event => {
+  event.preventDefault();
+  document.getElementById("payment-message").textContent =
+    "Dette er en demo. Ingen betaling er gjennomført. En ekte løsning må kobles til en sikker betalingsleverandør.";
+});
+toggleCardFields();
+</script>
+</body>
+</html>

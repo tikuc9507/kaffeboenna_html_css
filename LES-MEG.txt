@@ -1,0 +1,18 @@
+# Kaffebønna – HTML og CSS
+
+## Filer
+- index.html – Forside
+- meny.html – Meny med kategorier, priser og eksempel-allergener
+- bestilling.html – Bestillingsside med enkel handlekurv
+- betaling.html – Demo av betalingsvalg
+- om-oss.html – Om oss og FAQ
+- kontakt.html – Kontaktinformasjon, kontaktskjema og reservasjonsforespørsel
+- style.css – Felles styling for alle sider
+
+## Slik åpner du nettsiden
+1. Pakk ut ZIP-filen.
+2. Åpne `index.html` i nettleseren, eller åpne mappen i Visual Studio Code.
+3. For enkel utvikling kan du bruke utvidelsen Live Server i VS Code.
+
+## Viktig
+Dette er en frontend-demo. Bestilling, betaling, kontaktskjema og reservasjon sendes ikke til en server. Betaling er ikke ekte og må kobles til en sikker betalingsleverandør. Meny, priser, allergener og åpningstider er eksempelinnhold og må bekreftes før publisering. Bildene lastes fra Unsplash og krever internett.
